@@ -1,5 +1,7 @@
 *~
 *.pyc
-*.py~
+dartv2_control.py~
+robot_mission_00.py~
+stop.py~
 __pycache__
 .idea
