@@ -16,7 +16,6 @@ import time
 
 if __name__ == "__main__":
     mybot = drv.DartV2DriverV3()  # create the virtual robot
-    print("\n\n")
 
     num = 2  # rear sonar
     dmax = 2.0  # maximum distance in meters
@@ -24,14 +23,14 @@ if __name__ == "__main__":
     mybot.sonars.set_dist_max(num, dmax)  # set dmax for sonar num=3
     mybot.sonars.set_mode(num, 2)  # start the measurement
 
-    spd = 50
-    inertia_distance = 5  # cm
+    spd = 120
+    inertia_distance = 17.5  # cm (obtained with measure_inertia.py)
     distance_to_stop = 90  # cm
 
     mybot.powerboard.set_speed(spd, spd)
 
     while mybot.sonars.read_rear() < distance_to_stop - inertia_distance:
-        time.sleep(0.05)
+        time.sleep(0.1)  # 10 Hz
 
     mybot.powerboard.set_speed(0, 0)
 
