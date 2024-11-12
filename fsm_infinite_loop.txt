@@ -1,0 +1,30 @@
+----- States
+Idle
+Stop
+Rotate
+Move
+End
+----- Transitions
+Idle Idle wait doWait
+Idle Move go doMove
+Move Idle wait doWait
+Move Stop obstacle doStop
+Stop Move clear doMove
+Stop Rotate rotate doRotate
+Stop End end doFinish
+Rotate Stop end_rotation doStop
+----- Events
+wait
+go
+obstacle
+clear
+rotate
+end_rotation
+end
+---- Start State
+Idle
+---- Start Event
+go
+---- End State
+End
+

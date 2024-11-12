@@ -1,0 +1,22 @@
+----- States
+Idle
+Rotate
+Move
+----- Transitions
+Idle Idle wait doWait
+Idle Move go doMove
+Move Idle wait doWait
+Move Rotate obstacle doRotate180
+Rotate Move end_rotation doMove
+----- Events
+wait
+go
+obstacle
+end_rotation
+---- Start State
+Idle
+---- Start Event
+go
+---- End State
+End
+

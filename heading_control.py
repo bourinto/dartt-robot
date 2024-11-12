@@ -14,7 +14,7 @@ except:
 import dartv2_drivers_v3.drivers_v3 as drv
 import time
 
-kp = 100
+kp = 50
 
 if __name__ == "__main__":
     mybot = drv.DartV2DriverV3()  # create the virtual robot
@@ -43,11 +43,18 @@ if __name__ == "__main__":
 
     corr = np.inf
 
-    while abs(corr) > 15:
+    while abs(corr) > 30:
         head = getHeading(mybot.imu.read_mag_raw())
         dh = 2 * np.arctan(np.tan((head - h0) / 2))
         corr = dh * kp
         mybot.powerboard.set_speed(-corr, +corr)
+        time.sleep(0.1)  # 10 Hz
+
+    while mybot.sonars.read_front() > distance_to_stop + inertia_distance:
+        head = getHeading(mybot.imu.read_mag_raw())
+        dh = 2 * np.arctan(np.tan((head - h0) / 2))
+        corr = dh * kp
+        mybot.powerboard.set_speed(spd - corr, spd + corr)
         time.sleep(0.1)  # 10 Hz
 
     mybot.powerboard.set_speed(0, 0)
