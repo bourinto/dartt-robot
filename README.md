@@ -4,6 +4,22 @@ This repository contains control programs for the DART robot, a four-wheeled rob
 odometers, inertial navigation unit, lidar) and actuators (motors, 7-segment display). These programs are designed to
 control and interact with the robot for autonomous navigation and experimentation.
 
+## Table of Contents
+
+- [Author](#author)
+- [Programs](#programs)
+    - [`measure_inertia.py`](#measure_inertiapython)
+    - [`obstacle_detection_test.py`](#obstacle_detection_testpython)
+    - [`heading_calibration.py`](#heading_calibrationpython)
+    - [`heading_control.py`](#heading_controlpython)
+    - [`fsm.py`](#fsmpython)
+    - [`fsm_executor.py`](#fsm_executorpython)
+    - [`tools.py`](#tools)
+- [How to Calibrate the Compass](#how-to-calibrate-the-compass)
+- [Lidar Data Processing and Wall Detection](#how-to-use-fsm_executorp)
+- [How to Write a FSM.txt File](#how-to-write-a-fsmtxt-file)
+- [How to Use fsm_executor.py](#how-to-use-fsm_executorp)
+
 ## Author
 
 **Toméo BOURIN**  
@@ -30,8 +46,11 @@ Student at ENSTA Bretagne, specializing in Autonomous Robotics.
   a FSM.txt file" section below)*.
 
 
-- **`fsm_executor.py`**: Contains all control commands and executes the finite state machine (FSM) for the DART robot *(
-  see the "How to use fsm_executor.py" section below)*.
+- **`fsm_executor.py`**: Contains all control commands and executes the finite state machine (FSM) for the DART robot
+  *(see the "How to use fsm_executor.py" section below)*.
+
+
+- **`tools.py`**: Contains many usefull functions.
 
 *More programs will be added to this repository in the future.*
 
@@ -50,8 +69,19 @@ To calibrate the robot's compass using the `heading_calibration.py` script:
 3. **Compute Calibration and Use It**: The script will compute a transformation matrix to refine compass accuracy. You
    can then use the `getHeading(mag)` function in your programs to obtain calibrated heading readings.
 
+## Lidar Data Processing and Wall Detection
 
-## How to Write a `FSM.txt` File
+To achieve wall following, one could simply use sonars on the left and right sides, but their measurements are often
+noisy and unreliable. Therefore, we use a Lidar sensor.
+
+The algorithm filters Lidar data to focus on left and right sides. Then, a Hough Transform is used to detect the
+representation of
+walls as straight lines by mapping Lidar points, voting for lines in a polar grid.
+It has proved to be the ideal approach since it is almost insensitive to noise and can thus find the dominant wall.
+Detected lines will then feed distances and angles into PID controllers for
+maintaining a correct heading and positioning with respect to the walls.
+
+## How to Write a FSM.txt File
 
 To define the finite state machine (FSM) for the DART robot, create a `.txt` file with the following structure and
 sections:
@@ -123,7 +153,7 @@ sections:
 
 Be sure to align the states, transitions, and events with the Actions Functions defined in `fsm_executor.py`.
 
-## How to Use `fsm_executor.py`
+## How to Use fsm_executor.py
 
 To execute the FSM for the DART robot, follow these steps:
 

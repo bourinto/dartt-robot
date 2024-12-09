@@ -1,0 +1,23 @@
+----- States
+Idle
+Move
+Rotate
+End
+----- Transitions
+Idle Idle wait doWait
+Idle Move go doMove_lidar
+Move Rotate obstacle doRotate_lidar
+Rotate Move end_rotation doMove_lidar
+Rotate End end doFinish
+----- Events
+wait
+go
+obstacle
+end_rotation
+end
+---- Start State
+Idle
+---- Start Event
+go
+---- End State
+End
