@@ -8,17 +8,17 @@ control and interact with the robot for autonomous navigation and experimentatio
 
 - [Author](#author)
 - [Programs](#programs)
-    - [`measure_inertia.py`](#measure_inertiapython)
-    - [`obstacle_detection_test.py`](#obstacle_detection_testpython)
-    - [`heading_calibration.py`](#heading_calibrationpython)
-    - [`heading_control.py`](#heading_controlpython)
-    - [`fsm.py`](#fsmpython)
-    - [`fsm_executor.py`](#fsm_executorpython)
-    - [`tools.py`](#tools)
+    - `measure_inertia.py`
+    - `obstacle_detection_test.py`
+    - `heading_calibration.py`
+    - `heading_control.py`
+    - `fsm.py`
+    - `fsm_executor.py`
+    - `tools.py`
 - [How to Calibrate the Compass](#how-to-calibrate-the-compass)
-- [Lidar Data Processing and Wall Detection](#how-to-use-fsm_executorp)
-- [How to Write a FSM.txt File](#how-to-write-a-fsmtxt-file)
-- [How to Use fsm_executor.py](#how-to-use-fsm_executorp)
+- [Lidar Data Processing and Wall Detection](#lidar-data-processing-and-wall-detection)
+- [How to Write an FSM.txt File](#how-to-write-an-fsmtxt-file)
+- [How to Use fsm_executor.py](#how-to-use-fsm_executorpy)
 
 ## Author
 
@@ -81,7 +81,7 @@ It has proved to be the ideal approach since it is almost insensitive to noise a
 Detected lines will then feed distances and angles into PID controllers for
 maintaining a correct heading and positioning with respect to the walls.
 
-## How to Write a FSM.txt File
+## How to Write an FSM.txt File
 
 To define the finite state machine (FSM) for the DART robot, create a `.txt` file with the following structure and
 sections:
