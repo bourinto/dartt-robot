@@ -1,7 +1,10 @@
+"""Helper classes and functions for the DART robot controllers."""
+
 import numpy as np
 
 
-class PID():
+class PID:
+    """Simple PID controller."""
     def __init__(self, kp, ki, kd):
         self.kp = kp
         self.ki = ki
@@ -12,6 +15,7 @@ class PID():
         self.sum = 0
 
     def compute(self, val):
+        """Compute the control effort for a given value."""
         err = val - self.target
         derr = self.prev - err
         self.sum += err
@@ -19,11 +23,13 @@ class PID():
         return self.kp * err + self.ki * self.sum + self.kd * derr
 
     def reset(self):
+        """Reset the controller state."""
         self.prev = 0
         self.sum = 0
 
 
 def filter_lidar_dir(data, head, aperture=10):
+    """Filter lidar data around a given heading."""
     L = []
     for measure in data:
         dh = 2 * np.arctan(np.tan(np.radians(head - measure[0]) / 2))
@@ -34,6 +40,7 @@ def filter_lidar_dir(data, head, aperture=10):
 
 
 def get_lidar_distance(data, dir, aperture=10):
+    """Return the closest distance in a given direction."""
     if dir == 'front':
         head = 0
     elif dir == 'right':
@@ -50,6 +57,7 @@ def get_lidar_distance(data, dir, aperture=10):
 
 
 def hough_transform(x, y, num_rho=30, num_theta=180, threshold=30):
+    """Detect lines in a set of points using a simple Hough transform."""
     """
     Perform Hough Transform to detect lines in a set of points.
 
@@ -101,6 +109,7 @@ def hough_transform(x, y, num_rho=30, num_theta=180, threshold=30):
 
 
 def get_line(data, dir):
+    """Extract the dominant line on the left or right side."""
     if dir == 'right':
         head = 90
     elif dir == 'left':

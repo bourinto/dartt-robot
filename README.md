@@ -1,8 +1,7 @@
-# DART Robot Control Programs
+# DART Robot Simulation Programs
 
-This repository contains control programs for the DART robot, a four-wheeled robot equipped with sensors (sonars,
-odometers, inertial navigation unit, lidar) and actuators (motors, 7-segment display). These programs are designed to
-control and interact with the robot for autonomous navigation and experimentation.
+This repository contains control programs used to simulate the DART robot. It was developed for a robotics course exploring how algorithms behave differently in simulation and on the real robot. The robot features sonars, odometers, an inertial measurement unit, and a lidar sensor.
+
 
 ## Table of Contents
 
@@ -50,7 +49,7 @@ Student at ENSTA Bretagne, specializing in Autonomous Robotics.
   *(see the "How to use fsm_executor.py" section below)*.
 
 
-- **`tools.py`**: Contains many usefull functions.
+- **`tools.py`**: Contains many useful functions.
 
 *More programs will be added to this repository in the future.*
 

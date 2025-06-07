@@ -1,3 +1,5 @@
+"""Test program for rear sonar based obstacle detection."""
+
 import os
 import sys
 import numpy as np

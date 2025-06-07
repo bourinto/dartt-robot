@@ -1,3 +1,5 @@
+"""Execution framework for the robot finite state machine."""
+
 import fsm
 import argparse
 import os
@@ -19,15 +21,17 @@ import time
 from tools import *
 
 # global variables
-f = fsm.fsm()  # finite state machine
+f = fsm.FiniteStateMachine()  # finite state machine
 
 
 # functions (actions of the fsm)
 def doWait():
+    """Idle state."""
     pass
 
 
 def doMove():
+    """Move forward while keeping heading."""
     global t0
 
     while True:
@@ -43,6 +47,7 @@ def doMove():
 
 
 def doMove_lidar():
+    """Move forward using lidar-based wall following."""
     left_dist_pid.reset()
     right_dist_pid.reset()
 
@@ -83,6 +88,7 @@ def doMove_lidar():
 
 
 def doStop():
+    """Stop when an obstacle is detected."""
     global h0
     mybot.powerboard.set_speed(0, 0)
 
@@ -105,6 +111,7 @@ def doStop():
 
 
 def doRotate180():
+    """Rotate 180 degrees."""
     global t0, h0
     corr = 31
     h0 += np.pi
@@ -123,6 +130,7 @@ def doRotate180():
 
 
 def doRotate():
+    """Rotate to the current target heading."""
     global t0, h0
     corr = 31
     while abs(corr) > 30:
@@ -137,6 +145,7 @@ def doRotate():
 
 
 def doRotate_lidar():
+    """Rotate until lidar does not detect a wall on the side."""
     lidar_data = np.array(mybot.lidar.get_scan(debug=False)[0]['scan'])[:, 1:]
     if get_lidar_distance(lidar_data, 'right') > 500:
         mybot.powerboard.set_speed(50, -50)
@@ -153,7 +162,8 @@ def doRotate_lidar():
 
 
 def doFinish():
-    print("End of the programm")
+    """Gracefully stop the robot."""
+    print("End of the program")
     mybot.powerboard.stop()  # stop motors
     mybot.lidar.fullstop()  # clean stop of the RP Lidar
     mybot.end()  # clean end of the robot mission

@@ -1,3 +1,5 @@
+"""Compass calibration utilities for the DART robot."""
+
 import os
 import sys
 import numpy as np
@@ -13,7 +15,6 @@ except:
 import dartv2_drivers_v3.drivers_v3 as drv
 import time
 
-"""Obtained value"""
 north = [13097.10, 4954.18]
 east = [-6721.48, 19657.70]
 south = [-26230.05, 4899.70]
@@ -26,6 +27,7 @@ P, _, _, _ = np.linalg.lstsq(X_augmented, Y, rcond=None)
 
 
 def getHeading(mag):
+    """Return the calibrated heading from raw magnetometer data."""
     x = np.array([mag[0], mag[1], 1])
     y = x @ P
     return -np.arctan2(y[0], y[1]) + np.pi / 2

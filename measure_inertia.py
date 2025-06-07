@@ -1,3 +1,5 @@
+"""Utility to estimate the robot inertia by measuring its stopping distance."""
+
 import os
 import sys
 import numpy as np
