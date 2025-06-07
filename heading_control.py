@@ -1,3 +1,5 @@
+"""Demonstration of basic heading control using IMU data."""
+
 import os
 import sys
 import numpy as np
